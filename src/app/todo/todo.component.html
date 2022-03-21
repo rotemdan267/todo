@@ -1,5 +1,3 @@
-
-
 <h1>Amazing TODO List</h1>
 
 <hr>
@@ -7,8 +5,8 @@
 
 <form #addForm="ngForm" (submit)="handleSubmit(addForm)">
 
-    <input type="text" ngModel name ="task">
-    <button type = "submit">Add Task</button>
+    <input type="text" ngModel name="task">
+    <button type="submit">Add Task</button>
 
 </form>
 
@@ -16,13 +14,33 @@
 
 <h3>Your Tasks:</h3>
 
-<ul>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Task</td>
+            <td>Operations</td>
+        </tr>
+    </thead>
+    <tbody>
 
-    <li *ngFor="let t of tasks">
-         {{ t}}
-<button (click)="handleRemove(t)">
-    Remove
-</button>
-    </li>
-
-</ul>
+        <tr *ngFor="let t of tasks">
+            <td>
+                <span *ngIf="!t.isUpdated">{{t.name}}</span>
+                <span *ngIf="t.isUpdated">
+                    <input type="text" name="newName" #newName>
+                    <button type="submit" (click)="handleSubmitUpdate(newName.value, t.name)">
+                        Save
+                    </button>
+                </span>
+            </td>
+            <td>
+                <button (click)="handleRemove(t.name)">
+                    Remove
+                </button>
+                <button (click)="handleUpdate(t)">
+                    Update
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
