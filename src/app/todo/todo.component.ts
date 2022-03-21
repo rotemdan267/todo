@@ -26,4 +26,8 @@ export class TodoComponent implements OnInit {
     this.tasks.push(newTask);
     addForm.resetForm();
   }
+
+  handleRemove(t:string){
+    this.tasks = this.tasks.filter(myTask => myTask != t);
+  }
 }
