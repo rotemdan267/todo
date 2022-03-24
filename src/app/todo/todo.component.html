@@ -11,13 +11,20 @@
 </form>
 
 <hr>
+<div>
+    <button (click)="handleSave()">Save all</button>
+</div>
+<hr>
 
 <h3>Your Tasks:</h3>
 
 <table class="table table-striped">
     <thead>
         <tr>
-            <td>Task</td>
+            <td>Task
+                <span [class.isSorted]="sorted == SortEnum.ASC" class="arrow" (click)="handleSort(SortEnum.ASC)">&uarr;</span>
+                <span [class.isSorted]="sorted == SortEnum.DESC" class="arrow" (click)="handleSort(SortEnum.DESC)">&#8595;</span>
+            </td>
             <td>Operations</td>
         </tr>
     </thead>
@@ -27,7 +34,7 @@
             <td>
                 <span *ngIf="!t.isUpdated">{{t.name}}</span>
                 <span *ngIf="t.isUpdated">
-                    <input type="text" name="newName" #newName>
+                    <input type="text" name="newName" #newName value="{{t.name}}">
                     <button type="submit" (click)="handleSubmitUpdate(newName.value, t.name)">
                         Save
                     </button>
